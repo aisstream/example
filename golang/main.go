@@ -6,6 +6,7 @@ import (
 	aisstream "github.com/aisstream/ais-message-models/golang/aisStream"
 	"github.com/gorilla/websocket"
 	"log"
+	"time"
 )
 
 func main() {
@@ -26,6 +27,17 @@ func main() {
 	if err := ws.WriteMessage(websocket.TextMessage, subMsgBytes); err != nil {
 		log.Fatalln(err)
 	}
+
+	// send ping messages every 20 secs (aisstream requires every 30 seconds at minimum) to keep connection alive at regular intervals,
+	pingPeriod := time.Second * 20
+	ticker := time.NewTicker(pingPeriod)
+	go func() {
+		for range ticker.C {
+			if err := ws.WriteMessage(websocket.PingMessage, []byte{}); err != nil {
+				return
+			}
+		}
+	}()
 
 	for {
 		_, p, err := ws.ReadMessage()
