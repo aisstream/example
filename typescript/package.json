@@ -1,0 +1,15 @@
+{
+  "name": "aisstream-example-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "client.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.11.0"
+  }
+}
