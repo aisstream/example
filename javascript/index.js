@@ -1,5 +1,4 @@
 const WebSocket = require('ws');
-
 const socket = new WebSocket("wss://stream.aisstream.io/v0/stream")
 
 socket.onopen = function (_) {
