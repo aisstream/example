@@ -2,7 +2,7 @@
 This repository contains examples of using the AISStream API in Golang, Python, JavaScript and many more languages.
 
 ## Prerequisites
-Before you can use these examples, you will need to sign up for an AISStream API key at https://aisstream.io/authenticate.
+Before you can use these examples, you will need to sign up for an AISStream API key at [aisstream.io](https://aisstream.io/authenticate).
 
 ### Golang Example
 To run the Golang example, you will need to have Go installed on your system.
