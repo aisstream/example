@@ -6,7 +6,6 @@ import (
 	aisstream "github.com/aisstream/ais-message-models/golang/aisStream"
 	"github.com/gorilla/websocket"
 	"log"
-	"time"
 )
 
 func main() {
@@ -22,22 +21,11 @@ func main() {
 		APIKey:        "<YOUR API KEY>",
 		BoundingBoxes: [][][]float64{{{-90.0, -180.0}, {90.0, 180.0}}}, // bounding box for the entire world
 	}
-	subMsgBytes, _ := json.Marshal(subMsg)
 
+	subMsgBytes, _ := json.Marshal(subMsg)
 	if err := ws.WriteMessage(websocket.TextMessage, subMsgBytes); err != nil {
 		log.Fatalln(err)
 	}
-
-	// send ping messages every 20 secs (aisstream requires every 30 seconds at minimum) to keep connection alive at regular intervals,
-	pingPeriod := time.Second * 20
-	ticker := time.NewTicker(pingPeriod)
-	go func() {
-		for range ticker.C {
-			if err := ws.WriteMessage(websocket.PingMessage, []byte{}); err != nil {
-				return
-			}
-		}
-	}()
 
 	for {
 		_, p, err := ws.ReadMessage()
@@ -51,16 +39,16 @@ func main() {
 			log.Fatalln(err)
 		}
 
-		_ = packet.MetaData["MMSI"].(float64)            // // field may or may not be populated
-		shipName := packet.MetaData["ShipName"].(string) // field may or may not be populated
+		var shipName string
+		// field may or may not be populated
+		if packetShipName, ok := packet.MetaData["ShipName"]; ok {
+			shipName = packetShipName.(string)
+		}
 
 		switch packet.MessageType {
 		case aisstream.POSITION_REPORT:
 			var positionReport aisstream.PositionReport
-			err := json.Unmarshal([]byte(packet.Message), &positionReport) // unmarshall the AIS message itself
-			if err != nil {
-				log.Fatalln(err)
-			}
+			positionReport = *packet.Message.PositionReport
 			fmt.Printf("MMSI: %d Ship Name: %s Latitude: %f Latitude: %f\n",
 				positionReport.UserID, shipName, positionReport.Latitude, positionReport.Longitude)
 		}
