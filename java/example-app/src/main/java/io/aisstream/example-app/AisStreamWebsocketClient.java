@@ -22,7 +22,7 @@ public class AisStreamWebsocketClient extends WebSocketClient {
   @Override
   public void onOpen(ServerHandshake handshakedata) {
     // send subscription message upon connection
-    send("{\"APIKey\":\"5317a79c2355a3c39809ecfe1629605ab9df32e9\",\"BoundingBoxes\":[[[-90,-180],[90,180]]]}");
+    send("{\"APIKey\":\"<YOUR API KEY>\",\"BoundingBoxes\":[[[-90,-180],[90,180]]]}");
   }
 
 
