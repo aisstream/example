@@ -18,7 +18,7 @@ Clone the repository: `git clone https://github.com/aisstream/example`. Navigate
 ### JavaScript Example
 To run the JavaScript example, you will need to have Node.js installed on your system.
 
-Clone the repository: `git clone https://github.com/aisstream/example`. Navigate to the javascript directory: `cd example/javascript`. Install the dependencies: `npm install`. Replace "<YOUR API KEY>" in the main.js file with your AISStream API key.. Run the example: `node main.js`.
+Clone the repository: `git clone https://github.com/aisstream/example`. Navigate to the javascript directory: `cd example/javascript`. Install the dependencies: `npm install`. Replace "<YOUR API KEY>" in the index.js file with your AISStream API key.. Run the example: `node index.js`.
 
 ### Additional Resources
   
