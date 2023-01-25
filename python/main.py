@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 async def connect_ais_stream():
 
     async with websockets.connect("wss://stream.aisstream.io/v0/stream") as websocket:
-        subscribe_message = {"APIKey": "<API KEY>", "BoundingBoxes": [[[-90, -180], [90, 180]]]}
+        subscribe_message = {"APIKey": "<YOUR API KEY>", "BoundingBoxes": [[[-180, -90], [180, 90]]]}
 
         subscribe_message_json = json.dumps(subscribe_message)
         await websocket.send(subscribe_message_json)
@@ -21,7 +21,7 @@ async def connect_ais_stream():
                 print(f"[{datetime.now(timezone.utc)}] ShipId: {ais_message['UserID']} Latitude: {ais_message['Latitude']} Latitude: {ais_message['Longitude']}")
 
 if __name__ == "__main__":
-    asyncio.run(asyncio.run(connect_ais_stream()))
+    asyncio.run(connect_ais_stream())
 
 
 

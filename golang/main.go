@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	aisstream "github.com/aisstream/ais-message-models/golang/aisStream"
+	aisstream "github.com/aisstream/aisstream-message-models/golang/aisStream"
 	"github.com/gorilla/websocket"
 	"log"
 )
