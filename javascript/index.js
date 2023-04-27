@@ -24,7 +24,7 @@ socket.addEventListener("message", (event) => {
   if (aisMessage["MessageType"] === "PositionReport") {
     let positionReport = aisMessage["Message"]["PositionReport"];
     console.log(
-      `ShipId: ${positionReport["UserID"]} Latitude: ${positionReport["Latitude"]} Latitude: ${positionReport["Longitude"]}`
+      `ShipId: ${positionReport["UserID"]} Latitude: ${positionReport["Latitude"]} Longitude: ${positionReport["Longitude"]}`
     );
   }
 });
