@@ -1,0 +1,23 @@
+import asyncio
+import websockets
+import json
+from datetime import datetime, timezone
+
+async def connect_ais_stream():
+
+    async with websockets.connect("wss://stream.aisstream.io/v0/stream") as websocket:
+        subscribe_message = {"APIKey": "<YOUR API KEY>", "BoundingBoxes": [[[-90, -180], [90, 180]]], "FiltersShipMMSI": ["368207620", "367719770", "211476060"], "FilterMessageTypes": ["PositionReport"]}
+
+        subscribe_message_json = json.dumps(subscribe_message)
+        await websocket.send(subscribe_message_json)
+
+        async for message_json in websocket:
+            message = json.loads(message_json)
+            ais_message = message['Message']['PositionReport']
+            print(f"[{datetime.now(timezone.utc)}] ShipId: {ais_message['UserID']} Latitude: {ais_message['Latitude']} Latitude: {ais_message['Longitude']}")
+
+if __name__ == "__main__":
+    asyncio.run(connect_ais_stream())
+
+
+
