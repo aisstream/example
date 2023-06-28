@@ -8,8 +8,7 @@ Before you can use these examples, you will need to sign up for an AISStream API
 To run the Golang example, you will need to have Go installed on your system.
 
 Clone the repository: `git clone https://github.com/aisstream/example`. Navigate to the golang directory: `cd example/golang`. Install the dependencies: `go get -d`. Replace "<YOUR API KEY>" in the main.go file with your AISStream API key. Run the example: `go run main.go`.
-  
- 
+
 ### Python Example
 To run the Python example, you will need to have Python 3 installed on your system.
 
