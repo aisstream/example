@@ -11,10 +11,11 @@ import (
 func main() {
 
 	url := "wss://stream.aisstream.io/v0/stream"
-	ws, _, err := websocket.DefaultDialer.Dial(url, nil)
+	ws, http, err := websocket.DefaultDialer.Dial(url, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
+	_ = http
 	defer ws.Close()
 
 	subMsg := aisstream.SubscriptionMessage{
