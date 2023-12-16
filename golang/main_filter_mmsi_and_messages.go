@@ -50,7 +50,7 @@ func main() {
 		case aisstream.POSITION_REPORT:
 			var positionReport aisstream.PositionReport
 			positionReport = *packet.Message.PositionReport
-			fmt.Printf("MMSI: %d Ship Name: %s Latitude: %f Latitude: %f\n",
+			fmt.Printf("MMSI: %d Ship Name: %s Latitude: %f Longitude: %f\n",
 				positionReport.UserID, shipName, positionReport.Latitude, positionReport.Longitude)
 		}
 
