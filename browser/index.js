@@ -21,7 +21,7 @@ socket.onmessage = function (event) {
     const aisMessage = JSON.parse(event.data);
     if (aisMessage["MessageType"] === "PositionReport") {
         let positionReport = aisMessage["Message"]["PositionReport"];
-        const positionMessage = `ShipId: ${positionReport["UserID"]} Latitude: ${positionReport["Latitude"]} Latitude: ${positionReport["Longitude"]}`;
+        const positionMessage = `ShipId: ${positionReport["UserID"]} Latitude: ${positionReport["Latitude"]} Longitude: ${positionReport["Longitude"]}`;
         console.log(positionMessage);
         const span = document.createElement("span");
         span.innerText = positionMessage;

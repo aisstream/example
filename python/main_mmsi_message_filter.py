@@ -14,7 +14,7 @@ async def connect_ais_stream():
         async for message_json in websocket:
             message = json.loads(message_json)
             ais_message = message['Message']['PositionReport']
-            print(f"[{datetime.now(timezone.utc)}] ShipId: {ais_message['UserID']} Latitude: {ais_message['Latitude']} Latitude: {ais_message['Longitude']}")
+            print(f"[{datetime.now(timezone.utc)}] ShipId: {ais_message['UserID']} Latitude: {ais_message['Latitude']} Longitude: {ais_message['Longitude']}")
 
 if __name__ == "__main__":
     asyncio.run(connect_ais_stream())
