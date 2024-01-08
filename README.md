@@ -19,6 +19,9 @@ To run the JavaScript example, you will need to have Node.js installed on your s
 
 Clone the repository: `git clone https://github.com/aisstream/example`. Navigate to the javascript directory: `cd example/javascript`. Install the dependencies: `npm install`. Replace `"<YOUR API KEY>"` in the `main.js` file with your AISStream API key.. Run the example: `node main.js`.
 
+### C# Example
+To run the C# example, you will need to have .NET 8 installed on your system.
+
 ### Additional Resources
   
 For more information on the AISStream API, visit the [AISStream documentation](https://aisstream.io/documentation).
