@@ -20,7 +20,7 @@ To run the JavaScript example, you will need to have Node.js installed on your s
 Clone the repository: `git clone https://github.com/aisstream/example`. Navigate to the javascript directory: `cd example/javascript`. Install the dependencies: `npm install`. Replace `"<YOUR API KEY>"` in the `main.js` file with your AISStream API key.. Run the example: `node main.js`.
 
 ### C Example
-To run the C example, you will need to have [CMake 3.20+](https://cmake.org/) and [libwebsocket](https://libwebsockets.org/) with SSL support installed on your system.
+To build the C examples, you will need to have [CMake 3.20+](https://cmake.org/) and OpenSSL installed on your system. In addition, one example (`lws.c`) requires [libwebsocket](https://libwebsockets.org/) with OpenSSL. To run the C examples, replace `"<YOUR API KEY>"` in the `lws.c` and `mg.c` files with your AISStream API key.
 
 ### Additional Resources
   
