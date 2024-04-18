@@ -1,0 +1,5 @@
+# Rust
+
+```sh
+cargo run
+```
