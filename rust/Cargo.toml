@@ -1,0 +1,33 @@
+[package]
+name = "rust"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.77.2"
+publish = false
+resolver = "2"
+
+[dependencies]
+serde = { version = "1.0.198", features = ["derive"] }
+serde_json = "1.0.116"
+tungstenite = { version = "0.21.0", features = ["native-tls"] }
+url = "2.5.0"
+
+[profile.dev.build-override]
+debug = true
+
+[profile.release]
+panic = "unwind"
+codegen-units = 1
+lto = true
+strip = true
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+pedantic = { level = "deny", priority = -1 }
+cargo = { level = "deny", priority = -1 }
+cargo_common_metadata = "allow"
+multiple-crate-versions = "allow"
+module_name_repetitions = "allow"
