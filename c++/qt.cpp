@@ -10,14 +10,20 @@ class AisStreamClient : public QObject
 public:
     explicit AisStreamClient(QObject* parent = nullptr);
 
-private Q_SLOTS:
+// private Q_SLOTS:
     void onConnected();
     void onTextMessageReceived(QString message);
     void onBinaryMessageReceived(const QByteArray& message);
     void onSslErrors(const QList<QSslError>& errors);
+    void onError(QAbstractSocket::SocketError e);
+    void onPong(quint64 elapsedTime, const QByteArray &payload);
 
-private:
+
+    void timerEvent(QTimerEvent *event) override;
+
+  private:
     QWebSocket m_webSocket;
+
 };
 
 #include "qt.moc"
@@ -27,6 +33,7 @@ AisStreamClient::AisStreamClient(QObject* parent)
 {
     connect(&m_webSocket, &QWebSocket::connected, this, &AisStreamClient::onConnected);
     connect(&m_webSocket, QOverload<const QList<QSslError>&>::of(&QWebSocket::sslErrors), this, &AisStreamClient::onSslErrors);
+    connect(&m_webSocket, &QWebSocket::pong, this, &AisStreamClient::onPong);
     QSslConfiguration sslConfiguration;
     m_webSocket.setSslConfiguration(sslConfiguration);
     // NOTE: aisstream.io requires compression to serve full message bandwidth, and
@@ -36,13 +43,36 @@ AisStreamClient::AisStreamClient(QObject* parent)
     m_webSocket.open(QUrl("wss://stream.aisstream.io/v0/stream"));
 }
 
+void AisStreamClient::onPong(quint64 , const QByteArray &)
+{
+    qDebug() << "pong ";
+}
+
+void AisStreamClient::timerEvent(QTimerEvent *)
+{
+    qDebug() << "ping";
+    m_webSocket.ping();
+}
+
 void AisStreamClient::onConnected()
 {
     qDebug() << "WebSocket connected";
     connect(&m_webSocket, &QWebSocket::textMessageReceived, this, &AisStreamClient::onTextMessageReceived);
+    connect(&m_webSocket,
+            static_cast<void (QWebSocket::*)(QAbstractSocket::SocketError)>(&QWebSocket::errorOccurred), this,
+            &AisStreamClient::onError);
     connect(&m_webSocket, &QWebSocket::binaryMessageReceived, this, &AisStreamClient::onBinaryMessageReceived);
-    m_webSocket.sendTextMessage(QStringLiteral("{ \"APIKey\": \"<YOUR API KEY>\", \"BoundingBoxes\": [[[-11.0, 178.0], [30.0, 74.0]]]}"));
+    m_webSocket.sendTextMessage(QStringLiteral("{ \"APIKey\": \"<YOUR API KEY>\", \"FilterMessageTypes\": [\"PositionReport\"] ,\"BoundingBoxes\": [[[65, 17], [53, 23]]]}"));
+
+    // Need to ping pong to have the connection alive
+    startTimer(1000* 60 );
 }
+
+void AisStreamClient::onError(QAbstractSocket::SocketError e)
+{
+    qDebug() << "Error " << e;
+}
+
 
 void AisStreamClient::onTextMessageReceived(QString message)
 {
