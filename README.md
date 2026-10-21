@@ -45,6 +45,12 @@ To build the C++ examples, you will need to have [CMake 3.20+](https://cmake.org
 To build the Rust example, you will need to have [Rust 1.77.2+](https://www.rust-lang.org).
 To run the Rust example, define the environment variable `AISSTREAM_API_KEY` with your AISStream API key.
 
+### Elixir Example
+
+To run the Elixir example, you will need to have [Elixir 1.18+](https://elixir-lang.org/install.html) installed on your system.
+To run the Elixir example, define the environment variable `AISSTREAM_API_KEY` with your AISStream API key.
+Run the example: `cd example/elixir` and `elixir main.exs`.
+
 ### Additional Resources
 
 For more information on the AISStream API, visit the [AISStream documentation](https://aisstream.io/documentation).
