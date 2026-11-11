@@ -30,7 +30,23 @@ Run the example: `node main.js`.
 
 ### C# Example
 
-To run the C# example, you will need to have .NET 8 installed on your system.
+To run the C# example, you will need to have .NET 10 installed on your system.
+
+The example reads the API key from the `AISSTREAM_API_KEY` environment variable to help prevent accidental commits of API keys.
+
+#### PowerShell
+
+```powershell
+$env:AISSTREAM_API_KEY = "your-api-key"
+dotnet run
+```
+
+#### Command Prompt
+
+```cmd
+set AISSTREAM_API_KEY=your-api-key
+dotnet run
+```
 
 ### C Example
 
